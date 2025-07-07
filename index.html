@@ -1,8 +1,152 @@
 <!DOCTYPE html>
-<html>
-  <body>
-    Solar Conquest 2 Submission Guidelines  Written by Zalthen  
 
-    Welcome to the Submission Guidelines for Solar Conquest 2! Please read these carefully and take them into consideration when submitting a planet or model you want to see in game.  
+<style>
+
+p {
+    color:white;
+    font-family: "sans-serif";
+}
+
+h1 {
+  color: white;
+  font-family: "sans-serif";
+}
+
+ul {
+  color: white;
+  font-family: "sans-serif";
+}
+
+ol {
+  color: white;
+  font-family: "sans-serif";
+}
+
+n {
+    color: rgb(170, 170, 170);
+}
+
+cd {
+    background-color: rgb(20, 20, 20);
+    font-family: "monospace";
+    color: rgb(255, 255, 255);
+    padding: 2px;
+}
+
+.cb {
+    background-color: rgb(20, 20, 20);
+    font-family: "monospace";
+    color: rgb(200, 255, 200);
+    padding: 16px;
+    font-size: 120%;
+}
+
+a {
+  color: rgb(120, 120, 255);
+}
+
+</style>
+<html>
+  <body style="background-color:rgb(0, 0, 0)">
+    <img src="SC2Banner.png"><br>
+    <p>
+        Solar Conquest 2 Submission Guidelines  Written by Zalthen
+    </p>
+
+    <p>
+        Welcome to the Submission Guidelines for Solar Conquest 2! Please read these carefully and take them into consideration when submitting a planet or model you want to see in game.
+    </p>
+
+    <h1>General Guidelines</h1>
+    <p>
+        <ol>
+            <li>No Stealing Models from games or other people. If caught, you'll be removed from the community</li>
+            <li>Keep everything on a 1 stud increment. You can use 0.5 increment parts but do so very sparingly!</li>
+            <li>Avoid rotating parts in non-90 degree increments. You can have parts on wedges!</li>
+        </ol>
+    </p>
+
+    <h1>Planet Guidelines</h1>
+    <p>
+        <ul>
+            <li>Make your planet terrain unique, look at some popular movie franchises for inspiration!</li>
+            <li>Use rotated parts very sparingly, keep everything at 90 degree increments</li>
+            <li>If you want to add a stud texture to a part with a material not set to plastic, use a texture with the id <cd>3142967175</cd></li>
+            <li>If turning collision off a part, make sure to name the part <cd>NoCollide</cd> so it's easier for us developers to find it!</li>
+            <li>When adding water to your planet, create a part with the name <cd>WaterBlock</cd>, it'll be replaced with terrain water!</li>
+            <li>If you want to add air pockets to water, create a part with the name <cd>AirBlock</cd>, it'll remove the water inside of it!</li>
+        </ul>
+    </p>
+
+    <h1>Model Guidelines</h1>
+    <p>
+        <ul>
+            <li>If you want a part to have a team color, then name it <cd>Color</cd></li>
+            <li>If you want to use a turret another model has, I recommend going ingame and copying the turret!</li>
+            <li>Avoid rotating parts in non-90 degree increments. You can have parts on wedges!</li>
+            <li>When submitting your model, provide some stats for it! Note that we are allowed to change the stats to whatever we deem balanced</li>
+        </ul>
+    </p>
+
+    <h1>Model Links</h1>
+    <p>
+        <ul>
+            <li><a href="https://roblox.com/library/135141185566529">Base Planet</a></li>
+            <li><a href="https://roblox.com/library/135760299002937">Base Large Planet</a> <n>(2600x2600 baseplate)</n></li>
+            <li><a href="https://roblox.com/library/84901815189171">Base PC Planet</a> <n>(4096x4096 baseplate) (planet gets its own system)</n></li>
+            <li><a href="https://roblox.com/library/138067916376808">Base Moon</a> <n>(no capture point, doesn't come with a well)</n></li>
+            <li><a href="https://roblox.com/library/101664664554192">Base Gas Giant</a> <n>(leave a lot of open space for floating colonies!)</n></li>
+        </ul>
+    </p>
+
+    <h1>Tips and Tricks</h1>
+    <p>
+    <n>! Note that the code snippets below are meant to be ran in the Command Bar</n>
+    </p>
+
+    <p>
+    Need to recolor multiple parts with a specific name at once? Use this code snippet below!
+    <div class="cb"><pre>local name = "Leaf"
+local color = Color3.fromRGB(35, 80, 23)
+
+for i, obj1 in game.Selection:Get() do
+    if obj1:IsA("BasePart") and obj1.Name == name then
+        obj2.Color = color
+    elseif obj1:IsA("Model") or obj1:IsA("Folder") then
+        for j, obj2 in obj1:GetDescendants() do
+            if obj2:IsA("BasePart") and obj2.Name == name then
+                obj2.Color = color
+            end
+        end
+    end
+end</pre></div><br>
+    </p>
+
+    <p>
+    Too many panel gaps in your build and you need to remove them? Use this code snippet below!
+    <div class="cb"><pre>local n = 4
+local function roundVector(v)
+    return Vector3.new(
+        math.round(v.X * n) / n,
+        math.round(v.Y * n) / n,
+        math.round(v.Z * n) / n
+    )
+end
+
+local function RoundPartPositionsInContainer(container)
+    for _, descendant in ipairs(container:GetDescendants()) do
+        if descendant:IsA("BasePart") then
+            descendant.Position = roundVector(descendant.Position)
+        end
+    end
+end
+
+for i, obj in game.Selection:Get() do
+    if obj:IsA("Model") or obj:IsA("Folder") then
+        RoundPartPositionsInContainer(obj)
+    end
+end</pre></div><br>
+    </p>
+
   </body>
 </html>
