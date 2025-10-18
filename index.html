@@ -155,6 +155,8 @@ end
 for i, obj in game.Selection:Get() do
     if obj:IsA("Model") or obj:IsA("Folder") then
         RoundPartPositionsInContainer(obj)
+    elseif obj:IsA("BasePart") then
+        obj.Position = roundVector(obj.Position)
     end
 end</pre></div><br>
     </p>
