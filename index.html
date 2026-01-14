@@ -22,33 +22,114 @@ ol {
   font-family: "sans-serif";
 }
 
-n {
+note {
     color: rgb(170, 170, 170);
+	font-size: 95%;
 }
 
-cd {
-    background-color: rgb(20, 20, 20);
-    font-family: "monospace";
-    color: rgb(255, 255, 255);
-    padding: 2px;
-}
-
-.cb {
-    background-color: rgb(20, 20, 20);
+.codeblock {
+    background-color: rgb(20, 22, 20);
     font-family: "monospace";
     color: rgb(200, 255, 200);
     padding: 16px;
+	padding-top: 1px;
+	padding-bottom: 1px;
     font-size: 120%;
+}
+
+.smalltext {
+	opacity: 0.8;
+	font-size: 80%;
 }
 
 a {
   color: rgb(120, 120, 255);
 }
 
+.page {
+	width: 50%;
+	margin: auto;
+	padding-top: 10px;
+}
+
+.button {
+	padding: 8px;
+	border: 0;
+	background-color: rgb(22, 24, 22);
+	width: 100%;
+
+	color: rgb(255, 255, 255);
+	font-family: "monospace";
+}
+
+.button:hover {
+	background-color: rgb(33, 36, 33);
+}
+
+.button:active {
+	background-color: rgb(66, 72, 66);
+}
 
 </style>
+
+<script>
+
+function textToClipboard(text) {
+  	navigator.clipboard.writeText(text);
+}
+
+function codeToClipboard1() {
+	textToClipboard(`local name = "Leaf"
+local color = Color3.fromRGB(35, 80, 23)
+
+for i, obj1 in game.Selection:Get() do
+    if obj1:IsA("BasePart") and obj1.Name == name then
+        obj2.Color = color
+    elseif obj1:IsA("Model") or obj1:IsA("Folder") then
+        for j, obj2 in obj1:GetDescendants() do
+            if obj2:IsA("BasePart") and obj2.Name == name then
+                obj2.Color = color
+            end
+        end
+    end
+end`);
+
+	alert("Copied text to clipboard!");
+}
+
+function codeToClipboard2() {
+	textToClipboard(`local n = 4
+local function roundVector(v)
+    return Vector3.new(
+        math.round(v.X * n) / n,
+        math.round(v.Y * n) / n,
+        math.round(v.Z * n) / n
+    )
+end
+
+local function RoundPartPositionsInContainer(container)
+    for _, descendant in ipairs(container:GetDescendants()) do
+        if descendant:IsA("BasePart") then
+            descendant.Position = roundVector(descendant.Position)
+        end
+    end
+end
+
+for i, obj in game.Selection:Get() do
+    if obj:IsA("Model") or obj:IsA("Folder") then
+        RoundPartPositionsInContainer(obj)
+    elseif obj:IsA("BasePart") then
+        obj.Position = roundVector(obj.Position)
+    end
+end`);
+
+	alert("Copied text to clipboard!");
+}
+
+</script>
+
 <html>
-  <body style="background-color:rgb(0, 0, 0)">
+  <body style="background-color:rgb(0, 0, 0)" class="page">
     <title>SCII Guidelines</title>
 
     <head>
@@ -57,10 +138,10 @@ a {
         <meta property="og:image" content="SCIcon2.png">
     </head>
 
-    <img src="SC2Banner.png"><br>
-    <p>
-        Solar Conquest 2 Submission Guidelines  Written by Zalthen
-    </p>
+    <img src="SC2Banner.png" width="100%">
+    <p class="smalltext">
+        Solar Conquest II Submission Guidelines written by Zalthen
+    </p><br>
 
     <p>
         Welcome to the Submission Guidelines for Solar Conquest 2! Please read these carefully and take them into consideration when submitting a planet or model you want to see in game.
@@ -101,23 +182,24 @@ a {
     <h1>Model Links</h1>
     <p>
         <ul>
-            <li><a href="https://roblox.com/library/135141185566529">Base Planet</a></li>
-            <li><a href="https://roblox.com/library/135760299002937">Base Large Planet</a> <n>(2600x2600 baseplate)</n></li>
-            <li><a href="https://roblox.com/library/120539119017762">Base PC Planet</a> <n>(6144x6144 baseplate) (planet gets its own system)</n></li>
-            <li><a href="https://roblox.com/library/84901815189171">Base PC Planet</a> <n>(4096x4096 baseplate) (planet gets its own system)</n></li>
-            <li><a href="https://roblox.com/library/138067916376808">Base Moon</a> <n>(no capture point, doesn't come with a well)</n></li>
-            <li><a href="https://roblox.com/library/101664664554192">Base Gas Giant</a> <n>(leave a lot of open space for floating colonies!)</n></li>
+            <li><a href="https://roblox.com/library/135141185566529">Base Planet</a> <note>2048x2048 baseplate</note></li>
+            <li><a href="https://roblox.com/library/135760299002937">Base Large Planet</a> <note>2600x2600 baseplate</note></li>
+            <li><a href="https://roblox.com/library/120539119017762">Base PC Planet</a> <note>6144x6144 baseplate, planet gets its own system</note></li>
+            <li><a href="https://roblox.com/library/84901815189171">Base PC Planet</a> <note>4096x4096 baseplate, planet gets its own system</note></li>
+            <li><a href="https://roblox.com/library/138067916376808">Base Moon</a> <note>no capture point, doesn't come with a well</note></li>
+            <li><a href="https://roblox.com/library/101664664554192">Base Gas Giant</a> <note>leave a lot of open space for floating colonies!</note></li>
         </ul>
     </p>
 
     <h1>Tips and Tricks</h1>
     <p>
-    <n>! Note that the code snippets below are meant to be ran in the Command Bar</n>
+    <note>Note that the code snippets below are meant to be ran in the Command Bar</note>
     </p>
 
     <p>
     Need to recolor multiple parts with a specific name at once? Use this code snippet below!
-    <div class="cb"><pre>local name = "Leaf"
+	
+    <div class="codeblock"><pre>local name = "Leaf"
 local color = Color3.fromRGB(35, 80, 23)
 
 for i, obj1 in game.Selection:Get() do
@@ -130,12 +212,17 @@ for i, obj1 in game.Selection:Get() do
             end
         end
     end
-end</pre></div><br>
+end</pre></div>
+
+	<button class="button" onclick="codeToClipboard1()">
+		Copy to Clipboard
+	</button>
+<br><br>
     </p>
 
     <p>
     Too many panel gaps in your build and you need to remove them? Use this code snippet below!
-    <div class="cb"><pre>local n = 4
+    <div class="codeblock"><pre>local n = 4
 local function roundVector(v)
     return Vector3.new(
         math.round(v.X * n) / n,
@@ -158,7 +245,11 @@ for i, obj in game.Selection:Get() do
     elseif obj:IsA("BasePart") then
         obj.Position = roundVector(obj.Position)
     end
-end</pre></div><br>
+end</pre></div>
+	<button class="button" onclick="codeToClipboard2()">
+		Copy to Clipboard
+	</button>
+<br>
     </p>
 
   </body>
